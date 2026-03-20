@@ -1,4 +1,5 @@
 import { logout } from './api.js';
+import { buildApiUrl } from './config.js';
 
 function byId(id) {
   return document.getElementById(id);
@@ -408,13 +409,13 @@ export function setupSettingsMenuAndLogout() {
 export function setupConnectButton() {
   if (elements.connectGoogleFitButton) {
     elements.connectGoogleFitButton.addEventListener('click', () => {
-      window.location.href = '/auth/google';
+      window.location.href = buildApiUrl('/auth/google');
     });
   }
 
   if (elements.landingConnectGoogleFitButton) {
     elements.landingConnectGoogleFitButton.addEventListener('click', () => {
-      window.location.href = '/auth/google';
+      window.location.href = buildApiUrl('/auth/google');
     });
   }
 }
