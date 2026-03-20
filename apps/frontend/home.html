@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VitalOrb | Metabolic Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Space+Grotesk:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary": "#ffb3b5",
+              "error-container": "#93000a",
+              "on-error": "#690005",
+              "on-tertiary-container": "#8d5000",
+              "surface-bright": "#37393d",
+              "tertiary-fixed": "#ffdcbf",
+              "surface-container-low": "#1a1c1f",
+              "secondary-container": "#de0541",
+              "inverse-surface": "#e2e2e6",
+              "primary": "#dbfcff",
+              "surface-tint": "#00dbe9",
+              "on-tertiary-fixed-variant": "#6a3b00",
+              "secondary-fixed-dim": "#ffb3b5",
+              "outline": "#849495",
+              "primary-container": "#00f0ff",
+              "on-secondary-container": "#fff1f1",
+              "on-error-container": "#ffdad6",
+              "surface": "#111316",
+              "outline-variant": "#3b494b",
+              "primary-fixed": "#7df4ff",
+              "on-background": "#e2e2e6",
+              "on-secondary": "#680019",
+              "on-tertiary": "#4b2800",
+              "surface-dim": "#111316",
+              "background": "#111316",
+              "surface-variant": "#333538",
+              "on-primary-fixed": "#002022",
+              "secondary-fixed": "#ffdada",
+              "tertiary-container": "#ffd1a9",
+              "on-primary": "#00363a",
+              "surface-container-highest": "#333538",
+              "tertiary": "#fff4ed",
+              "on-surface": "#e2e2e6",
+              "inverse-on-surface": "#2f3034",
+              "on-primary-fixed-variant": "#004f54",
+              "error": "#ffb4ab",
+              "primary-fixed-dim": "#00dbe9",
+              "surface-container": "#1e2023",
+              "on-secondary-fixed": "#40000c",
+              "on-surface-variant": "#b9cacb",
+              "on-secondary-fixed-variant": "#920027",
+              "inverse-primary": "#006970",
+              "surface-container-lowest": "#0c0e11",
+              "on-primary-container": "#006970",
+              "tertiary-fixed-dim": "#ffb874",
+              "surface-container-high": "#282a2d",
+              "on-tertiary-fixed": "#2d1600"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"],
+              "numeric": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(55, 57, 61, 0.6);
+            backdrop-filter: blur(20px);
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #111316; }
+        ::-webkit-scrollbar-thumb { background: #333538; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 h-20 bg-[#111316] bg-opacity-90 backdrop-blur-xl">
+<div class="flex items-center gap-8">
+<div class="text-2xl font-black tracking-tighter text-[#00F0FF] uppercase font-numeric">VitalOrb</div>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-[#e2e2e6] opacity-70 font-label uppercase tracking-widest text-[10px] hover:bg-[#1e2023] hover:text-[#7df4ff] transition-colors duration-200" href="#">Intelligence</a>
+<a class="text-[#e2e2e6] opacity-70 font-label uppercase tracking-widest text-[10px] hover:bg-[#1e2023] hover:text-[#7df4ff] transition-colors duration-200" href="#">Integrations</a>
+<a class="text-[#e2e2e6] opacity-70 font-label uppercase tracking-widest text-[10px] hover:bg-[#1e2023] hover:text-[#7df4ff] transition-colors duration-200" href="#">Activity</a>
+<a class="text-[#00F0FF] font-bold border-b-2 border-[#00F0FF] font-label uppercase tracking-widest text-[10px] py-2" href="#">Nutrition</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center bg-surface-container-lowest px-4 py-2 rounded-lg">
+<span class="material-symbols-outlined text-outline text-sm" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-xs font-label text-on-surface placeholder:opacity-30" placeholder="Search Metrics..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-on-surface opacity-70 hover:opacity-100 transition-opacity" data-icon="notifications_active">notifications_active</button>
+<button class="material-symbols-outlined text-on-surface opacity-70 hover:opacity-100 transition-opacity" data-icon="settings">settings</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant p-0.5">
+<img alt="User Vitality Avatar" class="w-full h-full object-cover rounded-full" data-alt="Close up portrait of a futuristic athlete" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXkuOGXGANEf782BhoMJM46m0rUXyiDlCYlRO0yXUUXns1Cazt9aXZpkp_sywF6jTidsr8mPsdHQy8Sf-qBeHD49V86BUV5Mzrhl_Gaa50ujOAarCmfYrksVE2gHPdSsxappQJFHARJVztSarcVQWFik95T5bJ4ClemLRg9RGTqa6M3y_c_bijgkJUmnlU6tDTuo6mQhDT-UR6fQ8cefRKg517Z7mY3NJGohQDVOb7TBRBHXlXhE_wPfuJNRipSJay2CHERmkIfvsC"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col pt-24 pb-8 z-40 bg-[#111316] w-64 border-r border-[#1a1c1f]">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3 mb-2">
+<span class="text-[#00F0FF] font-black text-xl font-numeric">Level 42</span>
+<span class="text-[9px] bg-primary-container text-on-primary-container px-2 py-0.5 font-bold uppercase tracking-tight font-label">Elite Status</span>
+</div>
+<div class="h-1.5 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary-fixed to-primary-container w-[84%]"></div>
+</div>
+</div>
+<nav class="flex-1">
+<a class="flex items-center gap-4 text-[#e2e2e6] opacity-50 px-6 py-4 font-label text-[10px] uppercase tracking-widest hover:bg-[#1a1c1f] hover:opacity-100 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Intelligence
+            </a>
+<a class="flex items-center gap-4 text-[#e2e2e6] opacity-50 px-6 py-4 font-label text-[10px] uppercase tracking-widest hover:bg-[#1a1c1f] hover:opacity-100 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="sync_saved_locally">sync_saved_locally</span>
+                Integrations
+            </a>
+<a class="flex items-center gap-4 text-[#e2e2e6] opacity-50 px-6 py-4 font-label text-[10px] uppercase tracking-widest hover:bg-[#1a1c1f] hover:opacity-100 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+                Activity
+            </a>
+<a class="flex items-center gap-4 bg-[#1e2023] text-[#00F0FF] border-l-4 border-[#00F0FF] px-6 py-4 font-label text-[10px] uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant">restaurant</span>
+                Nutrition
+            </a>
+</nav>
+<div class="mt-auto px-6 mb-8">
+<button class="w-full py-3 bg-gradient-to-r from-primary-fixed to-primary-fixed-dim text-on-primary-fixed font-label font-bold text-[10px] uppercase tracking-widest active:scale-95 transition-all">
+                Upgrade Intelligence
+            </button>
+</div>
+<div class="border-t border-outline-variant/10">
+<a class="flex items-center gap-4 text-[#e2e2e6] opacity-50 px-6 py-4 font-label text-[10px] uppercase tracking-widest hover:bg-[#1a1c1f] hover:opacity-100 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                Help
+            </a>
+<a class="flex items-center gap-4 text-[#e2e2e6] opacity-50 px-6 py-4 font-label text-[10px] uppercase tracking-widest hover:bg-[#1a1c1f] hover:opacity-100 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-64 pt-24 p-8 min-h-screen">
+<header class="mb-12 flex justify-between items-end">
+<div class="max-w-2xl">
+<h1 class="text-5xl font-extrabold font-headline tracking-tight text-on-surface mb-2">Metabolic Intelligence</h1>
+<p class="text-on-surface-variant font-body">Deep telemetry of your fuel efficiency and energy conversion over the last 24 hours.</p>
+</div>
+<div class="flex gap-4">
+<div class="glass-panel px-6 py-3 border-l-2 border-tertiary-fixed-dim">
+<span class="block text-[10px] font-label text-tertiary-fixed-dim uppercase tracking-widest mb-1">Status</span>
+<span class="block text-xl font-headline font-bold text-on-surface uppercase">Optimal Fueling</span>
+</div>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Main Balance Card -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container p-8 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-tertiary-fixed-dim/5 blur-[100px] rounded-full"></div>
+<div class="flex justify-between items-start mb-12">
+<div>
+<h2 class="text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant mb-1">Energy Calibration</h2>
+<p class="text-2xl font-headline font-bold">Consumption vs. Burn</p>
+</div>
+<div class="text-right">
+<span class="text-[10px] font-label text-on-surface-variant uppercase tracking-widest">Source: NutriSwipe &amp; HealthStack</span>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center gap-12">
+<div class="relative w-64 h-64 flex items-center justify-center">
+<!-- Dual Circular Visual -->
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-variant" cx="50%" cy="50%" fill="transparent" r="90" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-tertiary-fixed-dim drop-shadow-[0_0_8px_rgba(255,184,116,0.3)]" cx="50%" cy="50%" fill="transparent" r="90" stroke="currentColor" stroke-dasharray="565" stroke-dashoffset="141" stroke-width="12"></circle>
+<circle class="text-surface-variant" cx="50%" cy="50%" fill="transparent" r="70" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-secondary drop-shadow-[0_0_8px_rgba(255,179,181,0.3)]" cx="50%" cy="50%" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="440" stroke-dashoffset="88" stroke-width="12"></circle>
+</svg>
+<div class="absolute text-center">
+<span class="block text-4xl font-numeric font-black text-on-surface">2,480</span>
+<span class="block text-[10px] font-label text-on-surface-variant uppercase tracking-widest">Net Kcal</span>
+</div>
+</div>
+<div class="flex-1 grid grid-cols-2 gap-8 w-full">
+<div class="p-6 bg-surface-container-low">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-lg" data-icon="restaurant_menu">restaurant_menu</span>
+<span class="text-[10px] font-label text-on-surface-variant uppercase tracking-widest">Intake</span>
+</div>
+<div class="text-4xl font-numeric font-bold text-tertiary-fixed-dim">3,240</div>
+<div class="mt-2 flex items-center gap-1 text-[10px] font-label text-on-surface-variant">
+<span class="text-error font-numeric font-bold">+12%</span> vs yesterday
+                            </div>
+</div>
+<div class="p-6 bg-surface-container-low">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-secondary text-lg" data-icon="bolt">bolt</span>
+<span class="text-[10px] font-label text-on-surface-variant uppercase tracking-widest">Expenditure</span>
+</div>
+<div class="text-4xl font-numeric font-bold text-secondary">2,810</div>
+<div class="mt-2 flex items-center gap-1 text-[10px] font-label text-on-surface-variant">
+<span class="text-primary-fixed font-numeric font-bold">-4%</span> vs yesterday
+                            </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Metabolic Gap Insights -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container p-8 flex flex-col justify-between">
+<div>
+<h2 class="text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant mb-6">Intelligence Analysis</h2>
+<div class="mb-8">
+<div class="flex justify-between items-end mb-2">
+<span class="text-2xl font-headline font-bold text-on-surface">Metabolic Gap</span>
+<span class="text-4xl font-numeric font-black text-secondary">+430</span>
+</div>
+<div class="h-1 w-full bg-surface-variant">
+<div class="h-full bg-secondary w-[60%] shadow-[0_0_15px_rgba(255,179,181,0.5)]"></div>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed font-body">
+                        Your energy balance is currently in a <span class="text-secondary font-bold">Surplus</span>. VitalOrb suggests an evening cardiovascular session of 25 minutes to realign your metabolic window.
+                    </p>
+</div>
+<div class="mt-8 flex flex-col gap-3">
+<div class="flex justify-between items-center py-3 px-4 bg-surface-container-high rounded-lg">
+<span class="text-[10px] font-label uppercase tracking-widest opacity-60">Basal Metabolic Rate</span>
+<span class="font-numeric font-bold">1,920 kcal</span>
+</div>
+<div class="flex justify-between items-center py-3 px-4 bg-surface-container-high rounded-lg">
+<span class="text-[10px] font-label uppercase tracking-widest opacity-60">Thermic Effect of Food</span>
+<span class="font-numeric font-bold">324 kcal</span>
+</div>
+</div>
+</div>
+<!-- Macros Breakdown -->
+<div class="col-span-12 md:col-span-6 lg:col-span-4 bg-surface-container-low p-8 border-l-2 border-primary-container/30">
+<h2 class="text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant mb-8">Macro-Nutrient Precision</h2>
+<div class="space-y-8">
+<div>
+<div class="flex justify-between mb-3">
+<span class="font-label font-bold text-[10px] tracking-widest uppercase">Protein (<span class="font-numeric">240g</span>)</span>
+<span class="font-numeric font-bold text-primary-fixed">92%</span>
+</div>
+<div class="h-2 bg-surface-variant w-full">
+<div class="h-full bg-primary-fixed w-[92%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-3">
+<span class="font-label font-bold text-[10px] tracking-widest uppercase">Carbohydrates (<span class="font-numeric">310g</span>)</span>
+<span class="font-numeric font-bold text-tertiary-fixed-dim">65%</span>
+</div>
+<div class="h-2 bg-surface-variant w-full">
+<div class="h-full bg-tertiary-fixed-dim w-[65%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-3">
+<span class="font-label font-bold text-[10px] tracking-widest uppercase">Fats (<span class="font-numeric">82g</span>)</span>
+<span class="font-numeric font-bold text-secondary">48%</span>
+</div>
+<div class="h-2 bg-surface-variant w-full">
+<div class="h-full bg-secondary w-[48%] shadow-[0_0_10px_rgba(255,179,181,0.2)]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quality & Density Insights -->
+<div class="col-span-12 md:col-span-6 lg:col-span-4 bg-surface-container-low p-8">
+<h2 class="text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant mb-8">Nutrient Density Index</h2>
+<div class="flex items-center gap-6 mb-8">
+<div class="text-6xl font-numeric font-black text-primary-fixed-dim">8.4</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold uppercase tracking-widest text-on-surface font-label">Exceptional</span>
+<span class="text-[10px] text-on-surface-variant font-body">Top <span class="font-numeric">4%</span> of VitalOrb users</span>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-4 text-sm font-body">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="check_circle">check_circle</span>
+<span class="text-on-surface-variant">High bioavailability in last meal</span>
+</div>
+<div class="flex items-center gap-4 text-sm font-body">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="check_circle">check_circle</span>
+<span class="text-on-surface-variant">Zero processed sugars detected</span>
+</div>
+<div class="flex items-center gap-4 text-sm font-body">
+<span class="material-symbols-outlined text-tertiary-fixed-dim" data-icon="warning">warning</span>
+<span class="text-on-surface-variant">Magnesium levels trending low</span>
+</div>
+</div>
+</div>
+<!-- 7-Day Intake Trends -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-low p-8">
+<h2 class="text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant mb-8">7-Day Telemetry</h2>
+<div class="h-48 flex items-end justify-between gap-2">
+<!-- Day 1 -->
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-tertiary-fixed-dim/20 rounded-t-sm relative h-32">
+<div class="absolute bottom-0 w-full bg-tertiary-fixed-dim h-[70%] transition-all group-hover:h-[75%]"></div>
+</div>
+<span class="text-[9px] font-numeric text-on-surface-variant">MON</span>
+</div>
+<!-- Day 2 -->
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-tertiary-fixed-dim/20 rounded-t-sm relative h-32">
+<div class="absolute bottom-0 w-full bg-tertiary-fixed-dim h-[85%]"></div>
+</div>
+<span class="text-[9px] font-numeric text-on-surface-variant">TUE</span>
+</div>
+<!-- Day 3 -->
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-tertiary-fixed-dim/20 rounded-t-sm relative h-32">
+<div class="absolute bottom-0 w-full bg-tertiary-fixed-dim h-[60%]"></div>
+</div>
+<span class="text-[9px] font-numeric text-on-surface-variant">WED</span>
+</div>
+<!-- Day 4 -->
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-secondary/20 rounded-t-sm relative h-32 border-x border-secondary/30">
+<div class="absolute bottom-0 w-full bg-secondary h-[95%]"></div>
+</div>
+<span class="text-[9px] font-numeric text-secondary font-bold">THU</span>
+</div>
+<!-- Day 5 -->
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-tertiary-fixed-dim/20 rounded-t-sm relative h-32">
+<div class="absolute bottom-0 w-full bg-tertiary-fixed-dim h-[75%]"></div>
+</div>
+<span class="text-[9px] font-numeric text-on-surface-variant">FRI</span>
+</div>
+<!-- Day 6 -->
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-tertiary-fixed-dim/20 rounded-t-sm relative h-32">
+<div class="absolute bottom-0 w-full bg-tertiary-fixed-dim h-[65%]"></div>
+</div>
+<span class="text-[9px] font-numeric text-on-surface-variant">SAT</span>
+</div>
+<!-- Day 7 -->
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-tertiary-fixed-dim/20 rounded-t-sm relative h-32">
+<div class="absolute bottom-0 w-full bg-tertiary-fixed-dim h-[80%]"></div>
+</div>
+<span class="text-[9px] font-numeric text-on-surface-variant">SUN</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Glass Insights Panel -->
+<div class="fixed bottom-8 right-8 w-80 glass-panel p-6 border border-outline-variant/20 shadow-2xl">
+<div class="flex items-start gap-4">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container text-sm" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="flex-1">
+<span class="block text-[10px] font-label text-primary-fixed uppercase tracking-widest mb-1">AI Recommendation</span>
+<p class="text-xs text-on-surface leading-relaxed font-body">
+                        Detecting "Metabolic Lag." Increase hydration by <span class="font-numeric">400ml</span> before the next macro-intake to improve nutrient absorption.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full h-16 bg-[#111316] border-t border-outline-variant/10 flex justify-around items-center px-4 z-50">
+<a class="flex flex-col items-center text-[#e2e2e6] opacity-50" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[9px] font-label uppercase">Intel</span>
+</a>
+<a class="flex flex-col items-center text-[#e2e2e6] opacity-50" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span class="text-[9px] font-label uppercase">Stats</span>
+</a>
+<a class="flex flex-col items-center text-[#00F0FF]" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+<span class="text-[9px] font-label uppercase font-bold">Fuel</span>
+</a>
+<a class="flex flex-col items-center text-[#e2e2e6] opacity-50" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[9px] font-label uppercase">User</span>
+</a>
+</nav>
+</body></html>
