@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require('fs');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const { authRouter } = require('./modules/auth/interfaces/auth.routes');
@@ -8,18 +9,30 @@ const { errorHandler } = require('./shared/errors/error-handler.middleware');
 
 const app = express();
 const frontendDirPath = path.resolve(__dirname, '../../frontend');
+const frontendHomeFilePath = path.join(frontendDirPath, 'home.html');
+const frontendAssetsAvailable = fs.existsSync(frontendHomeFilePath);
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(attachSession);
-app.use(express.static(frontendDirPath));
+if (frontendAssetsAvailable) {
+  app.use(express.static(frontendDirPath));
+}
 
 app.get('/', (req, res) => {
-  return res.sendFile(path.join(frontendDirPath, 'home.html'));
+  if (frontendAssetsAvailable) {
+    return res.sendFile(frontendHomeFilePath);
+  }
+
+  return res.status(200).json({ service: 'vitalorb-backend', message: 'Frontend not bundled in this Lambda artifact' });
 });
 
 app.get('/dashboard', (req, res) => {
-  return res.sendFile(path.join(frontendDirPath, 'home.html'));
+  if (frontendAssetsAvailable) {
+    return res.sendFile(frontendHomeFilePath);
+  }
+
+  return res.status(404).json({ message: 'Frontend unavailable in backend deployment' });
 });
 
 app.get('/health', (req, res) => {

@@ -18,7 +18,7 @@ const env = {
   googleClientSecret: getRequiredEnvVar('GOOGLE_CLIENT_SECRET'),
   redirectUri: process.env.REDIRECT_URI || 'http://localhost:3000/auth/callback',
   fitDefaultTimezone: process.env.FIT_DEFAULT_TIMEZONE || 'Asia/Kolkata',
-  awsRegion: process.env.AWS_REGION || 'ap-south-1',
+  awsRegion: process.env.VITALORB_AWS_REGION || 'ap-south-1',
   tokenTableName: process.env.TOKEN_TABLE_NAME || '',
   sessionCookieName: process.env.SESSION_COOKIE_NAME || 'vitalorb_session',
   sessionSecret: process.env.SESSION_SECRET || 'dev-only-change-me',

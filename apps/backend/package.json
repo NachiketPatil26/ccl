@@ -11,6 +11,7 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.882.0",
     "@aws-sdk/lib-dynamodb": "^3.882.0",
+    "@codegenie/serverless-express": "^4.17.0",
     "axios": "^1.8.2",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.5",

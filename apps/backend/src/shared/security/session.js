@@ -54,21 +54,24 @@ function parseSessionToken(token) {
 
 function setSessionCookie(res, userId) {
   const sessionToken = createSessionToken(userId);
+  const isProduction = env.nodeEnv === 'production';
 
   res.cookie(env.sessionCookieName, sessionToken, {
     httpOnly: true,
-    sameSite: 'lax',
-    secure: env.nodeEnv === 'production',
+    sameSite: isProduction ? 'none' : 'lax',
+    secure: isProduction,
     path: '/',
     maxAge: 1000 * 60 * 60 * 24 * 7
   });
 }
 
 function clearSessionCookie(res) {
+  const isProduction = env.nodeEnv === 'production';
+
   res.clearCookie(env.sessionCookieName, {
     httpOnly: true,
-    sameSite: 'lax',
-    secure: env.nodeEnv === 'production',
+    sameSite: isProduction ? 'none' : 'lax',
+    secure: isProduction,
     path: '/'
   });
 }
