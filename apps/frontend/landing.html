@@ -12,30 +12,18 @@
       theme: {
         extend: {
           colors: {
-            'surface': '#111316',
+            surface: '#111316',
             'surface-container': '#1e2023',
-            'surface-container-low': '#1a1c1f',
-            'surface-container-high': '#282a2d',
-            'surface-variant': '#333538',
-            'outline-variant': '#3b494b',
             'on-surface': '#e2e2e6',
             'on-surface-variant': '#b9cacb',
             'primary-fixed': '#7df4ff',
             'primary-fixed-dim': '#00dbe9',
-            'primary-container': '#00f0ff',
-            'on-primary-fixed': '#002022',
-            'secondary': '#ffb3b5',
-            'tertiary-fixed-dim': '#ffb874'
+            'on-primary-fixed': '#002022'
           },
           fontFamily: {
             headline: ['Inter'],
             body: ['Inter'],
-            label: ['Inter'],
-            numeric: ['Space Grotesk']
-          },
-          borderRadius: {
-            DEFAULT: '0.125rem',
-            lg: '0.25rem'
+            label: ['Inter']
           }
         }
       }
@@ -44,45 +32,20 @@
 </head>
 <body class="bg-surface text-on-surface font-body min-h-screen">
   <main class="min-h-screen flex items-center justify-center p-8">
-    <section class="w-full max-w-4xl bg-surface-container p-10 md:p-14 relative overflow-hidden">
-      <div class="absolute -top-20 -right-20 w-72 h-72 bg-primary-fixed-dim/10 blur-[100px] rounded-full"></div>
-      <div class="absolute -bottom-20 -left-20 w-72 h-72 bg-secondary/10 blur-[100px] rounded-full"></div>
-
-      <div class="relative">
-        <div class="text-sm font-label uppercase tracking-[0.25em] text-on-surface-variant mb-4">VitalOrb</div>
-        <h1 class="text-4xl md:text-6xl font-headline font-extrabold tracking-tight mb-4">Biometric Intelligence Dashboard</h1>
-        <p class="text-on-surface-variant text-base md:text-lg max-w-2xl mb-10">
-          Connect your Google account to securely sync Google Fit telemetry and unlock live insights for steps, calories burned, and heart-rate trends.
-        </p>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
-          <div class="bg-surface-container-low p-5">
-            <div class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-2">Steps</div>
-            <div class="text-3xl font-numeric font-bold text-primary-fixed">Live</div>
-          </div>
-          <div class="bg-surface-container-low p-5">
-            <div class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-2">Calories</div>
-            <div class="text-3xl font-numeric font-bold text-tertiary-fixed-dim">Live</div>
-          </div>
-          <div class="bg-surface-container-low p-5">
-            <div class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-2">Heart Rate</div>
-            <div class="text-3xl font-numeric font-bold text-secondary">Live</div>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-4">
-          <button id="sign-in-google-btn" type="button" class="px-7 py-3 bg-gradient-to-r from-primary-fixed to-primary-fixed-dim text-on-primary-fixed font-label font-bold text-[11px] uppercase tracking-widest active:scale-95 transition-all">
-            Sign in with Google
-          </button>
-          <span class="text-[11px] uppercase tracking-widest text-on-surface-variant font-label">Secure OAuth 2.0</span>
-        </div>
-      </div>
+    <section class="w-full max-w-3xl bg-surface-container p-10 md:p-14">
+      <div class="text-sm font-label uppercase tracking-[0.25em] text-on-surface-variant mb-4">VitalOrb</div>
+      <h1 class="text-4xl md:text-5xl font-headline font-extrabold tracking-tight mb-4">Biometric Intelligence Dashboard</h1>
+      <p class="text-on-surface-variant text-base md:text-lg mb-10">
+        Sign in with Google to connect your Google Fit account and open the VitalOrb dashboard.
+      </p>
+      <button id="sign-in-google-btn" type="button" class="px-7 py-3 bg-gradient-to-r from-primary-fixed to-primary-fixed-dim text-on-primary-fixed font-label font-bold text-[11px] uppercase tracking-widest active:scale-95 transition-all">
+        Sign in with Google
+      </button>
     </section>
   </main>
 
   <script>
     const signInButton = document.getElementById('sign-in-google-btn');
-
     signInButton.addEventListener('click', () => {
       window.location.href = '/auth/google';
     });

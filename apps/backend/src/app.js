@@ -15,14 +15,10 @@ app.use(attachSession);
 app.use(express.static(frontendDirPath));
 
 app.get('/', (req, res) => {
-  return res.sendFile(path.join(frontendDirPath, 'landing.html'));
+  return res.sendFile(path.join(frontendDirPath, 'home.html'));
 });
 
 app.get('/dashboard', (req, res) => {
-  if (!req.auth || !req.auth.userId) {
-    return res.redirect('/');
-  }
-
   return res.sendFile(path.join(frontendDirPath, 'home.html'));
 });
 

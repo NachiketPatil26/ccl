@@ -63,8 +63,18 @@ function logoutUser(req, res) {
   });
 }
 
+function getSessionStatus(req, res) {
+  const isAuthenticated = Boolean(req.auth && req.auth.userId);
+
+  return res.status(200).json({
+    authenticated: isAuthenticated,
+    userId: isAuthenticated ? req.auth.userId : null
+  });
+}
+
 module.exports = {
   redirectToGoogleOAuth,
   handleGoogleOAuthCallback,
-  logoutUser
+  logoutUser,
+  getSessionStatus
 };
