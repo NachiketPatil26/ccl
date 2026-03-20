@@ -2,6 +2,7 @@ const {
   getGoogleAuthRedirectUrl,
   exchangeCodeAndStoreTokens
 } = require('../application/auth.service');
+const { env } = require('../../../config/env');
 const { logInfo } = require('../../../shared/logging/logger');
 const { setSessionCookie, clearSessionCookie } = require('../../../shared/security/session');
 
@@ -34,7 +35,7 @@ async function handleGoogleOAuthCallback(req, res, next) {
 
     const acceptsHtml = (req.headers.accept || '').includes('text/html');
     if (acceptsHtml) {
-      return res.redirect('/dashboard?connected=1');
+      return res.redirect(`${env.frontendUrl}/home.html?connected=1`);
     }
 
     return res.status(200).json({
@@ -55,7 +56,7 @@ function logoutUser(req, res) {
 
   const acceptsHtml = (req.headers.accept || '').includes('text/html');
   if (acceptsHtml) {
-    return res.redirect('/');
+    return res.redirect(`${env.frontendUrl}/index.html`);
   }
 
   return res.status(200).json({
