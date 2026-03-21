@@ -5,11 +5,20 @@ const { logInfo } = require('../../../shared/logging/logger');
 async function getAccessTokenForRequest(req) {
   const userId = req.auth ? req.auth.userId : null;
 
+  logInfo('Fit controller: resolving access token for request', {
+    path: req.path,
+    authenticated: Boolean(userId)
+  });
+
   if (!userId) {
     return null;
   }
 
   const tokens = await getTokensForUser(userId);
+  logInfo('Fit controller: token lookup completed', {
+    userId,
+    hasAccessToken: Boolean(tokens && tokens.access_token)
+  });
   return tokens ? tokens.access_token : null;
 }
 
@@ -59,10 +68,15 @@ async function getStepCount(req, res, next) {
 
 async function getAllHealthMetrics(req, res, next) {
   try {
+    logInfo('Fit controller: /fit/metrics request received', {
+      path: req.path,
+      origin: req.headers.origin || null
+    });
     const accessToken = await getAccessTokenForRequest(req);
     const timeZone = getRequestTimezone(req);
 
     if (!accessToken) {
+      logInfo('Fit controller: /fit/metrics unauthorized due to missing access token');
       return res.status(401).json({
         message: 'No access token found. Complete /auth/google flow first.'
       });

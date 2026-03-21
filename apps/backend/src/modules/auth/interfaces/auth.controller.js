@@ -10,7 +10,11 @@ function redirectToGoogleOAuth(req, res) {
   // Route starts OAuth flow by redirecting user to Google's consent screen.
   const oauthUrl = getGoogleAuthRedirectUrl();
 
-  logInfo('Redirecting user to Google OAuth consent screen');
+  logInfo('Redirecting user to Google OAuth consent screen', {
+    path: req.path,
+    redirectUri: env.redirectUri,
+    frontendUrl: env.frontendUrl
+  });
   res.redirect(oauthUrl);
 }
 
@@ -20,10 +24,19 @@ async function handleGoogleOAuthCallback(req, res, next) {
     const { code } = req.query;
 
     if (!code) {
+      logInfo('OAuth callback missing authorization code', {
+        path: req.path,
+        queryKeys: Object.keys(req.query || {})
+      });
       return res.status(400).json({
         message: 'Authorization code is missing from callback request'
       });
     }
+
+    logInfo('OAuth callback received authorization code', {
+      path: req.path,
+      hasCode: true
+    });
 
     const authResult = await exchangeCodeAndStoreTokens(code);
     setSessionCookie(res, authResult.userId);
@@ -35,6 +48,9 @@ async function handleGoogleOAuthCallback(req, res, next) {
 
     const acceptsHtml = (req.headers.accept || '').includes('text/html');
     if (acceptsHtml) {
+      logInfo('OAuth callback redirecting browser to frontend', {
+        frontendUrl: env.frontendUrl
+      });
       return res.redirect(`${env.frontendUrl}/home.html?connected=1`);
     }
 
@@ -47,6 +63,19 @@ async function handleGoogleOAuthCallback(req, res, next) {
       expires_in: authResult.tokens.expires_in
     });
   } catch (error) {
+    const acceptsHtml = (req.headers.accept || '').includes('text/html');
+    if (acceptsHtml) {
+      const errorMessage =
+        error && typeof error.message === 'string' ? error.message : 'OAuth callback failed';
+      logInfo('OAuth callback failed, redirecting browser to frontend error state', {
+        frontendUrl: env.frontendUrl,
+        errorMessage
+      });
+      return res.redirect(
+        `${env.frontendUrl}/index.html?authError=${encodeURIComponent(errorMessage)}`
+      );
+    }
+
     return next(error);
   }
 }

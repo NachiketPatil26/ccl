@@ -1,6 +1,13 @@
 const crypto = require('crypto');
 const { env } = require('../../config/env');
 
+const LEGACY_SESSION_COOKIE_NAMES = ['vitalorbsession', 'vitalorb_session'];
+
+function getSessionCookieCandidates() {
+  const names = new Set([env.sessionCookieName, ...LEGACY_SESSION_COOKIE_NAMES]);
+  return Array.from(names).filter(Boolean);
+}
+
 function toBase64Url(value) {
   return Buffer.from(value).toString('base64url');
 }
@@ -55,30 +62,55 @@ function parseSessionToken(token) {
 function setSessionCookie(res, userId) {
   const sessionToken = createSessionToken(userId);
   const isProduction = env.nodeEnv === 'production';
-
-  res.cookie(env.sessionCookieName, sessionToken, {
+  const cookieOptions = {
     httpOnly: true,
     sameSite: isProduction ? 'none' : 'lax',
     secure: isProduction,
     path: '/',
     maxAge: 1000 * 60 * 60 * 24 * 7
-  });
+  };
+
+  for (const cookieName of getSessionCookieCandidates()) {
+    if (cookieName !== env.sessionCookieName) {
+      res.clearCookie(cookieName, {
+        httpOnly: true,
+        sameSite: isProduction ? 'none' : 'lax',
+        secure: isProduction,
+        path: '/'
+      });
+    }
+  }
+
+  res.cookie(env.sessionCookieName, sessionToken, cookieOptions);
 }
 
 function clearSessionCookie(res) {
   const isProduction = env.nodeEnv === 'production';
 
-  res.clearCookie(env.sessionCookieName, {
-    httpOnly: true,
-    sameSite: isProduction ? 'none' : 'lax',
-    secure: isProduction,
-    path: '/'
-  });
+  for (const cookieName of getSessionCookieCandidates()) {
+    res.clearCookie(cookieName, {
+      httpOnly: true,
+      sameSite: isProduction ? 'none' : 'lax',
+      secure: isProduction,
+      path: '/'
+    });
+  }
 }
 
 function resolveSessionFromRequest(req) {
-  const sessionToken = req.cookies ? req.cookies[env.sessionCookieName] : null;
-  return parseSessionToken(sessionToken);
+  if (!req.cookies) {
+    return null;
+  }
+
+  for (const cookieName of getSessionCookieCandidates()) {
+    const sessionToken = req.cookies[cookieName];
+    const parsed = parseSessionToken(sessionToken);
+    if (parsed && parsed.userId) {
+      return parsed;
+    }
+  }
+
+  return null;
 }
 
 module.exports = {
