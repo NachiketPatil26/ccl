@@ -280,6 +280,33 @@ function sideTabClasses(tabElement, isActive) {
   tabElement.classList.add('text-[#e2e2e6]', 'opacity-50');
 }
 
+function bottomTabClasses(tabElement, isActive) {
+  tabElement.classList.remove('text-[#00F0FF]', 'text-[#e2e2e6]', 'opacity-50');
+
+  const labelElement = tabElement.querySelector('span:last-child');
+  const iconElement = tabElement.querySelector('.material-symbols-outlined');
+
+  if (labelElement) {
+    labelElement.classList.remove('font-bold');
+  }
+  if (iconElement) {
+    iconElement.style.fontVariationSettings = "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+  }
+
+  if (isActive) {
+    tabElement.classList.add('text-[#00F0FF]');
+    if (labelElement) {
+      labelElement.classList.add('font-bold');
+    }
+    if (iconElement) {
+      iconElement.style.fontVariationSettings = "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+    }
+    return;
+  }
+
+  tabElement.classList.add('text-[#e2e2e6]', 'opacity-50');
+}
+
 export function setupTabs(initialTab = 'nutrition') {
   let activeTab = initialTab;
 
@@ -301,6 +328,9 @@ export function setupTabs(initialTab = 'nutrition') {
       }
       if (tabElement.id.startsWith('side-tab-')) {
         sideTabClasses(tabElement, isActive);
+      }
+      if (tabElement.id.startsWith('bottom-tab-')) {
+        bottomTabClasses(tabElement, isActive);
       }
     });
 
